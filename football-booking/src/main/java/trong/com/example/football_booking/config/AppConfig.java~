@@ -1,0 +1,20 @@
+package trong.com.example.football_booking.configuration;
+
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.util.StringUtils;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.util.List;
+import java.util.Locale;
+
+@Configuration
+public class AppConfig implements WebMvcConfigurer {
+    
+    @Override
+    public Locale resolveLocale(HttpServletRequest request) {
+        String lang = request.getHeader("Accept-Language");
+
+        return StringUtils.hasLength(lang) ? Locale.lookup(Locale.LanguageRange.parse(lang), List.of(new Locale("en"), new Locale("fr"), new Locale("vi"))): Locale.getDefault();
+    }
+}

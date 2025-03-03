@@ -1,0 +1,5 @@
+/football-booking/src/main/resources/*.properties
+/football-booking/src/main/resources/*.properties~
+/football-booking/src/main/resources
+/football-booking/pom.xml
+/football-booking/pom.xml~

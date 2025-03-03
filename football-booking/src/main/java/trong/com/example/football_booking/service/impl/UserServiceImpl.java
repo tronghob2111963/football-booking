@@ -1,0 +1,52 @@
+package trong.com.example.football_booking.service.impl;
+
+import jakarta.transaction.Transactional;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import trong.com.example.football_booking.dto.request.UserRequestDTO;
+import trong.com.example.football_booking.entity.User;
+import trong.com.example.football_booking.repository.UserRepository;
+import trong.com.example.football_booking.service.UserService;
+
+
+@Slf4j
+@Service
+@Getter
+@Setter
+@AllArgsConstructor
+public class UserServiceImpl implements UserService {
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+
+
+    @Override
+    public User getUserById(Long id) {
+       return userRepository.findById(id)
+               .orElseThrow(() -> new RuntimeException("User not found with id: " + id));
+    }
+
+    @Override
+    @Transactional
+    public long saveUser(UserRequestDTO request) {
+        User user = User.builder()
+                .username(request.getUsername())
+                .password(passwordEncoder.encode(request.getPassword()))
+                .email(request.getEmail())
+                .phone(request.getPhone())
+                .role(request.getRole())
+                .build();
+        userRepository.save(user).getId();
+        log.info("User saved: {}", user);
+        return user.getId();
+    }
+
+    @Override
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("User not found with username: " + username));
+    }
+}

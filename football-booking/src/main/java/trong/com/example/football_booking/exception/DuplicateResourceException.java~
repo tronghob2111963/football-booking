@@ -1,0 +1,4 @@
+package trong.com.example.football_booking.exception;
+
+public class DuplicateResourceException {
+}

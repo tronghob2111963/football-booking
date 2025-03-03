@@ -1,0 +1,5 @@
+package trong.com.example.football_booking.common;
+
+public enum FieldsStatus {
+    AVAILABLE, UNAVAILABLE
+}
