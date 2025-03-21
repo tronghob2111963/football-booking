@@ -2,8 +2,6 @@ package trong.com.example.football_booking.controller;
 
 
 import jakarta.validation.constraints.Min;
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,14 +9,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import trong.com.example.football_booking.common.FieldsStatus;
 import trong.com.example.football_booking.dto.reponse.ResponseData;
 import trong.com.example.football_booking.entity.Field;
 import trong.com.example.football_booking.repository.FieldRepository;
 import trong.com.example.football_booking.service.FieldService;
 import trong.com.example.football_booking.service.FileService;
-
-import java.util.List;
 
 @Slf4j
 @RestController

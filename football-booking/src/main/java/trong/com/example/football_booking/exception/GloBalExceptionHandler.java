@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import trong.com.example.football_booking.dto.reponse.ResponseData;
 
+import java.nio.file.AccessDeniedException;
 import java.util.Date;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
@@ -54,6 +56,16 @@ public class GloBalExceptionHandler {
             errorResponse.setError("Failled to conver to type");
         }
         return errorResponse;
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseData<?> handleAccessDeniedException(AccessDeniedException ex) {
+        return new ResponseData<>(HttpStatus.FORBIDDEN.value(), "Bạn không có quyền thực hiện hành động này!", null);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseData<?> handleGeneralException(Exception ex) {
+        return new ResponseData<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Đã có lỗi xảy ra: " + ex.getMessage(), null);
     }
 
 

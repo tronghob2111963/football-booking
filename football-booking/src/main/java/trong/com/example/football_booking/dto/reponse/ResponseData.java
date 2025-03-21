@@ -2,6 +2,7 @@ package trong.com.example.football_booking.dto.reponse;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+
 public class ResponseData<T> {
     private final int status;
     private final String message;

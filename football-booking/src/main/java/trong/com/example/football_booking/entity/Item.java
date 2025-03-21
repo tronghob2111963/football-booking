@@ -13,8 +13,17 @@ public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false)
     private String name;
-    private double price;
-    private int stock;
+
+    @Column(nullable = false)
+    private Double price;
+
+    @Column(nullable = false)
+    private Integer stock;
+
+    @Column(name = "image_url")  // Thêm trường image_url
+    private String imageUrl;
 
 }

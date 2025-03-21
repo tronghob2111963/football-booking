@@ -2,10 +2,8 @@ package trong.com.example.football_booking.controller;
 
 
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,7 +18,6 @@ import trong.com.example.football_booking.dto.reponse.LoginResponse;
 import trong.com.example.football_booking.dto.reponse.ResponseData;
 import trong.com.example.football_booking.dto.request.LoginRequest;
 import trong.com.example.football_booking.dto.request.UserRequestDTO;
-import trong.com.example.football_booking.entity.User;
 import trong.com.example.football_booking.service.UserService;
 
 @Slf4j
@@ -74,18 +71,7 @@ public class AuthController {
             return new ResponseData<>(HttpStatus.UNAUTHORIZED.value(), "Xác thực thất bại");
         }
     }
-//    @PostMapping("/login")
-//    public ResponseData<?> login(@RequestBody LoginRequest loginRequest) {
-//        log.info("User login with username: {}", loginRequest.getUsername());
-//        Authentication authentication = authenticationManager.authenticate(
-//                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
-//        String token = jwtTokenProvider.generateToken(authentication);
-//        String role = authentication.getAuthorities().stream()
-//                .map(authority -> authority.getAuthority())
-//                .findFirst()
-//                .orElse("ROLE_USER");
-//        return new ResponseData<>(HttpStatus.OK.value(), "Login successful", new LoginResponse(token, role));
-//    }
+
 }
 
 
