@@ -1,33 +1,37 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import HomePage from '../views/HomePage.vue';
 import LoginPage from '../views/LoginPage.vue';
+import RegisterPage from '../views/RegisterPage.vue';
+import HomePage from '../views/HomePage.vue';
 
 const routes = [
-  {
-    path: '/',
-    name: 'Home',
-    component: HomePage,
-    meta: { requiresAuth: true },
-  },
   {
     path: '/login',
     name: 'Login',
     component: LoginPage,
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    component: RegisterPage,
+  },
+  {
+    path: '/',
+    name: 'Home',
+    component: HomePage,
+    beforeEnter: (to, from, next) => {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        next('/login');
+      } else {
+        next();
+      }
+    },
   },
 ];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
-});
-
-router.beforeEach((to, from, next) => {
-  const isAuthenticated = !!localStorage.getItem('token');
-  if (to.meta.requiresAuth && !isAuthenticated) {
-    next('/login');
-  } else {
-    next();
-  }
 });
 
 export default router;

@@ -1,19 +1,18 @@
-import Vue from 'vue';
+import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
-import Vuetify from 'vuetify';
-import 'vuetify/dist/vuetify.min.css';
-import axios from './axios';
+import { createVuetify } from 'vuetify';
+import 'vuetify/styles';
+import * as components from 'vuetify/components';
+import * as directives from 'vuetify/directives';
+import '@mdi/font/css/materialdesignicons.min.css';
 
-Vue.config.productionTip = false;
-Vue.use(Vuetify);
+const vuetify = createVuetify({
+  components,
+  directives,
+});
 
-const vuetify = new Vuetify(); // Khởi tạo Vuetify
-
-new Vue({
-  router,
-  vuetify,
-  render: h => h(App),
-}).$mount('#app');
-
-Vue.prototype.$axios = axios; // Đăng ký Axios toàn cục
+const app = createApp(App);
+app.use(vuetify);
+app.use(router);
+app.mount('#app');

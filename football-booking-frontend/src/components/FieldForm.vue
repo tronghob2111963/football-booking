@@ -9,12 +9,6 @@
       label="Status"
       required
     ></v-select>
-    <v-file-input
-      v-model="fieldImage"
-      label="Upload Image"
-      accept="image/*"
-      @change="onFileChange"
-    ></v-file-input>
     <v-btn color="primary" type="submit" :disabled="loading" :loading="loading">Save</v-btn>
     <v-btn color="secondary" @click="$emit('cancel')">Cancel</v-btn>
     <p v-if="error" style="color: red">{{ error }}</p>
@@ -30,37 +24,39 @@ export default {
         address: '',
         pricePerHour: 0,
         status: 'AVAILABLE',
-        imageUrl: '',
       },
-      fieldImage: null,
       error: '',
       loading: false,
     };
   },
   methods: {
-    onFileChange(file) {
-      this.fieldImage = file;
-    },
     async submitField() {
       this.loading = true;
       this.error = '';
       try {
-        const formData = new FormData();
-        formData.append('name', this.field.name);
-        formData.append('address', this.field.address || '');
-        formData.append('pricePerHour', this.field.pricePerHour);
-        formData.append('status', this.field.status);
-        if (this.fieldImage) {
-          formData.append('image', this.fieldImage);
-        }
+        // Đảm bảo dữ liệu gửi đi khớp với entity Field
+        const fieldData = {
+          name: this.field.name,
+          address: this.field.address || '',
+          pricePerHour: Number(this.field.pricePerHour), // Đảm bảo là số
+          status: this.field.status,
+          imageUrl: null, // Backend sẽ set nếu có image
+        };
 
-        const response = await this.$axios.post('/api/field/create-field', formData, {
-          headers: { 'Content-Type': 'multipart/form-data' },
+        const response = await this.$axios.post('/api/field/create-field', fieldData, {
+          headers: { 'Content-Type': 'application/json' },
         });
 
+        console.log('Created field:', response.data);
         this.$emit('saved', response.data.data);
       } catch (err) {
-        this.error = err.response?.data?.message || 'Không thể thêm sân!';
+        // Xử lý lỗi chi tiết hơn
+        if (err.response) {
+          this.error = err.response.data?.message || 'Không thể thêm sân! Vui lòng kiểm tra dữ liệu.';
+        } else {
+          this.error = 'Có lỗi xảy ra khi kết nối với server!';
+        }
+        console.error('Error creating field:', err.response ? err.response.data : err.message);
       } finally {
         this.loading = false;
       }

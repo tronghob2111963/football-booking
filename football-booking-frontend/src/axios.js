@@ -2,6 +2,9 @@ import axios from 'axios';
 
 const instance = axios.create({
   baseURL: 'http://localhost:8080', // Địa chỉ backend
+  headers: {
+    'Content-Type': 'application/json', // Đảm bảo header mặc định
+  },
 });
 
 instance.interceptors.request.use(

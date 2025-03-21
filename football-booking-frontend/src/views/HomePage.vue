@@ -1,6 +1,9 @@
 <template>
   <v-container>
     <h1>Football Field Booking</h1>
+    <v-snackbar v-model="successSnackbar" color="success" timeout="3000">
+      Thêm sân thành công!
+    </v-snackbar>
     <p v-if="error" style="color: red">{{ error }}</p>
 
     <h2>Available Fields</h2>
@@ -63,6 +66,7 @@ export default {
       fields: [],
       items: [],
       error: '',
+      successSnackbar: false,
       showFieldForm: false,
       showItemForm: false,
     };
@@ -82,9 +86,10 @@ export default {
         const response = await this.$axios.get('/api/field/list-field', {
           params: { pageNo: 1, pageSize: 20 },
         });
-        this.fields = response.data.data.items;
+        console.log('Fetched fields:', response.data);
+        this.fields = response.data.data?.items || [];
       } catch (err) {
-        this.error = 'Không thể tải danh sách sân!';
+        this.error = err.response?.data?.message || 'Không thể tải danh sách sân!';
       }
     },
     async fetchItems() {
@@ -92,9 +97,9 @@ export default {
         const response = await this.$axios.get('/api/items', {
           params: { pageNo: 1, pageSize: 20 },
         });
-        this.items = response.data.data;
+        this.items = response.data.data || [];
       } catch (err) {
-        this.error = 'Không thể tải danh sách vật phẩm!';
+        this.error = err.response?.data?.message || 'Không thể tải danh sách vật phẩm!';
       }
     },
     async handleBook(bookingData) {
@@ -112,9 +117,17 @@ export default {
     openItemForm() {
       this.showItemForm = true;
     },
-    fieldSaved(field) {
-      this.fields.push(field);
-      this.showFieldForm = false;
+    async fieldSaved(field) {
+      console.log('Field saved:', field);
+      if (field && field.id) {
+        this.successSnackbar = true;
+        this.showFieldForm = false;
+        // Làm mới danh sách sân
+        await this.fetchFields();
+      } else {
+        console.error('Invalid field data:', field);
+        this.error = 'Không thể thêm sân do dữ liệu không hợp lệ!';
+      }
     },
     itemSaved(item) {
       this.items.push(item);
