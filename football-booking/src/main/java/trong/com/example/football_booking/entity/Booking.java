@@ -1,3 +1,4 @@
+
 package trong.com.example.football_booking.entity;
 
 
@@ -25,7 +26,7 @@ public class Booking {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user_id;
+    private User user;
 
     @Column(name = "start_time", nullable = false)
     private LocalDateTime start_time;
@@ -37,4 +38,7 @@ public class Booking {
     @Column(name = "status", nullable = false)
     @Enumerated(EnumType.STRING)
     private BookingStatus status;
+
+    @Column(name = "total_cost") // Thêm trường total_cost
+    private Double totalCost;
 }

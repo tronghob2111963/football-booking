@@ -9,7 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import trong.com.example.football_booking.dto.reponse.FieldReponse;
 import trong.com.example.football_booking.dto.reponse.ResponseData;
+import trong.com.example.football_booking.dto.request.FieldRequestDTO;
 import trong.com.example.football_booking.entity.Field;
 import trong.com.example.football_booking.repository.FieldRepository;
 import trong.com.example.football_booking.service.FieldService;
@@ -42,13 +44,25 @@ public class FieldController {
 
     @PostMapping("/create-field")
     public ResponseEntity<?> createField(@RequestBody Field field, @RequestParam(value = "image", required = false) MultipartFile image) throws Exception {
-        log.info("Creating new field: name={}, address={}, pricePerHour={}, status={}", field.getName(), field.getAddress(), field.getPricePerHour(), field.getStatus());
+        log.info("Creating new field: name={}, address={}, pricePerHour={}, status={}", field.getName(), field.getAddress(), field.getPrice_per_hour(), field.getStatus());
         if (image != null && !image.isEmpty()) {
             String imageUrl = fileService.uploadFile(image);
             field.setImageUrl(imageUrl);
         }
         Field savedField = fieldRepository.save(field);
         return ResponseEntity.ok(new ResponseData<>(HttpStatus.OK.value(), "Field created successfully", savedField));
+    }
+
+    @PutMapping("/update-field/{id}")
+    public ResponseData<?> updateField(@PathVariable Long id, @RequestBody FieldRequestDTO request) {
+        log.info("Updating field with id: {}", id);
+        try {
+            FieldReponse updatedField = fieldService.updateField(id, request);
+            return new ResponseData<>(HttpStatus.OK.value(), "Field updated successfully", updatedField);
+        } catch (Exception e) {
+            log.error("Error updating field: {}", e.getMessage());
+            return new ResponseData<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Error updating field", null);
+        }
     }
 
 

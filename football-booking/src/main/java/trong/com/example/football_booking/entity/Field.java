@@ -27,7 +27,7 @@ public class Field {
     private String address;
 
     @Column(name = "price_per_hour", nullable = false)
-    private Double pricePerHour;
+    private Double price_per_hour;
 
     @Enumerated(EnumType.STRING)
     private FieldsStatus status;

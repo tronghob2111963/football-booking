@@ -1,3 +1,4 @@
+
 package trong.com.example.football_booking.dto.request;
 
 import lombok.AllArgsConstructor;
@@ -11,5 +12,7 @@ public class BookingRequestDTO {
     private String bookingDate;
     private String start_time;
     private String end_time;
+    private String status;
+    private String total_cost;
 
 }

@@ -35,7 +35,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/field/create-field").hasRole("ADMIN")
+                        .requestMatchers("api/field/update-field/**").hasRole("ADMIN")
                         .requestMatchers("/api/field/list-field").authenticated()
+                        .requestMatchers("api/items/**").hasRole("ADMIN")
                         .requestMatchers("api/booking/create-booking").authenticated()
                         .requestMatchers("/api/booking/get-all-booking").hasRole("ADMIN")
                         .anyRequest().authenticated()

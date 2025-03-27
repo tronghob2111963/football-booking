@@ -1,14 +1,15 @@
+
 package trong.com.example.football_booking.dto.reponse;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @Builder
+@NoArgsConstructor
 public class BookingResponse {
 //    id BIGINT AUTO_INCREMENT PRIMARY KEY,
 //    field_id BIGINT,
@@ -21,7 +22,15 @@ public class BookingResponse {
     private Long id;
     private Long field_id;
     private Long userId;
-    private String startTime;
-    private String endTime;
+//    private String startTime;
+//    private String endTime;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
     private String status;
+    private String fieldName;
+    private String fieldAddress;
+    private Double totalCost;
+
+
+
 }

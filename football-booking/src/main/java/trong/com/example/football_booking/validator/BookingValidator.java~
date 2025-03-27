@@ -65,3 +65,45 @@ public class BookingValidator {
         return LocalDateTime.parse(endDateTimeStr, formatter);
     }
 }
+//package trong.com.example.football_booking.validator;
+//
+//import lombok.extern.slf4j.Slf4j;
+//import org.springframework.stereotype.Component;
+//import trong.com.example.football_booking.dto.request.BookingRequestDTO;
+//
+//import java.time.Duration;
+//import java.time.LocalDateTime;
+//import java.time.format.DateTimeFormatter;
+//
+//@Slf4j
+//@Component
+//public class BookingValidator {
+//    public void validateBookingRequest(BookingRequestDTO request) throws IllegalArgumentException {
+//        log.info("Validating booking request: {}" ,request);
+//        if(request == null){
+//            throw new IllegalArgumentException("Booking request cannot be null");
+//        }
+//
+//        DateTimeFormatter   dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+//        LocalDateTime startTime = LocalDateTime.parse(request.getStartTime(), dtf);
+//        LocalDateTime endTime = LocalDateTime.parse(request.getEndTime(), dtf);
+//
+//        if(startTime.isAfter(endTime) || startTime.isEqual(endTime)){
+//            throw new IllegalArgumentException("Start time must be before end time");
+//        }
+//        Duration duration = Duration.between(startTime, endTime);
+//        if(duration.toMinutes() < 60){
+//            throw new IllegalArgumentException("Duration must be at least 30 minutes");
+//        }
+//    }
+//    public LocalDateTime getStartTime(BookingRequestDTO request) {
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+//        return LocalDateTime.parse(request.getBookingDate() + " " + request.getStartTime(), formatter);
+//    }
+//
+//    public LocalDateTime getEndTime(BookingRequestDTO request) {
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+//        return LocalDateTime.parse(request.getBookingDate() + " " + request.getEndTime(), formatter);
+//    }
+//
+//}
