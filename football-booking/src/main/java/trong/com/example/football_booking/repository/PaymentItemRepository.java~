@@ -1,0 +1,4 @@
+package trong.com.example.football_booking.repository;
+
+public interface PaymentItemRepository {
+}

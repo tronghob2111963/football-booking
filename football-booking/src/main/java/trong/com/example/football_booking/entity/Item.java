@@ -26,4 +26,7 @@ public class Item {
     @Column(name = "image_url")  // Thêm trường image_url
     private String imageUrl;
 
+    @Column(name = "totalcost")
+    private Double totalPrice;
+
 }

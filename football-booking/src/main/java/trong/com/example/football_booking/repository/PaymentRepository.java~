@@ -1,8 +1,0 @@
-package trong.com.example.football_booking.repository;
-
-import org.springframework.data.jpa.repository.JpaRepository;
-import trong.com.example.football_booking.entity.Payment;
-
-public interface PaymentRepository extends JpaRepository<Payment, Long> {
-    
-}

@@ -1,0 +1,17 @@
+package trong.com.example.football_booking.dto.request;
+
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
+import trong.com.example.football_booking.common.PaymentMethod;
+
+import java.util.List;
+
+
+@Data
+@RequiredArgsConstructor
+public class PaymentRequestDTO {
+    private Long bookingId;
+    private List<InvoiceItemRequestDTO> invoiceItems;
+    private Double amount;
+    private PaymentMethod paymentMethod;
+}
