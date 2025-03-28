@@ -145,13 +145,5 @@ public class ItemServiceImpl implements ItemService {
                 .build();
     }
 
-//    private ItemResponseDTO mapToResponse(Item item) {
-//        ItemResponseDTO response = new ItemResponseDTO();
-//        response.setId(item.getId());
-//        response.setName(item.getName());
-//        response.setPrice(item.getPrice());
-//        response.setStock(item.getStock());
-//        response.setImageUrl(item.getImageUrl());
-//        return response;
-//    }
+
 }

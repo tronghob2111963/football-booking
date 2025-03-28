@@ -6,6 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "invoice")
 @Data
@@ -21,12 +24,8 @@ public class Invoice {
     @JoinColumn(name = "booking_id", nullable = false)
     private Booking booking;
 
-    @ManyToOne
-    @JoinColumn(name = "item_id", nullable = false)
-    private Item item;
-
-    @Column(name = "quantity", nullable = false)
-    private Integer quantity = 1;
+    @OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL, orphanRemoval = true)// Cột invoice_id trong bảng invoice_items
+    private List<InvoiceItem> items = new ArrayList<>(); // Thay đổi thành danh sách InvoiceItem
 
     @Column(name = "totalcost")
     private Double totalPrice;
