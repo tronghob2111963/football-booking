@@ -27,35 +27,6 @@ public class ItemServiceImpl implements ItemService {
 
     private final ItemRepository itemRepository;
 
-//    @Override
-//    public ItemResponseDTO createItem(ItemRequestDTO request) {
-//        log.info("Creating item: {}", request);
-//
-//        // Validate request
-//        if (request.getName() == null || request.getName().isEmpty()) {
-//            throw new IllegalArgumentException("Item name cannot be null or empty");
-//        }
-//        if (request.getPrice() == null || request.getPrice() <= 0) {
-//            throw new IllegalArgumentException("Price must be greater than 0");
-//        }
-//        if (request.getStock() == null || request.getStock() < 0) {
-//            throw new IllegalArgumentException("Stock cannot be negative");
-//        }
-//
-//        // Tạo item mới
-//        Item item = new Item();
-//        item.setName(request.getName());
-//        item.setPrice(request.getPrice());
-//        item.setStock(request.getStock());
-//        item.setImageUrl(request.getImageUrl());
-//
-//        // Lưu vào database
-//        Item savedItem = itemRepository.save(item);
-//        log.info("Item created successfully with ID: {}", savedItem.getId());
-//
-//        // Trả về response
-//        return mapToResponse(savedItem);
-//    }
 
     @Override
     public ItemResponseDTO updateItem(Long id, ItemRequestDTO request) {
